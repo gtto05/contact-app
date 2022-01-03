@@ -1,4 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+
+import { Link } from 'react-router-dom';
+
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 const ContactCard = (props) => {
   const {
@@ -17,8 +20,19 @@ const ContactCard = (props) => {
             clickHandler(id);
           }}
         />
-        <h3 className="header">{name}</h3>
-        <div>{email}</div>
+        <Link
+          to={{
+            pathname: `/contact/${id}`,
+            state: {
+              name,
+              email,
+              id,
+            },
+          }}
+        >
+          <h3 className="header">{name}</h3>
+          <div>{email}</div>
+        </Link>
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AddContact from './AddContact';
 import ContactList from './ContactList';
 import Header from './Header';
+import ContactDetail from './ContactDetail';
 
 export default function App() {
   const LOCAL_STORAGE_KEY = 'contacts';
@@ -25,9 +27,29 @@ export default function App() {
   }, [contacts]);
   return (
     <div className="ui container">
-      <Header />
-      <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={contacts} getContactId={removeContactHandler} />
+      <Router>
+        <Header />
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <ContactList
+                {...props}
+                contacts={contacts}
+                getContactId={removeContactHandler}
+              />
+            )}
+          />
+          <Route
+            path="/add"
+            render={(props) => (
+              <AddContact {...props} addContactHandler={addContactHandler} />
+            )}
+          />
+          <Route path="/contact/:id" component={ContactDetail} />
+        </Switch>
+      </Router>
     </div>
   );
 }

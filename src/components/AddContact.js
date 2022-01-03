@@ -14,7 +14,7 @@ class AddContact extends React.Component {
   }
 
   add = (e) => {
-    const { addContactHandler } = this.props;
+    const { addContactHandler, history } = this.props;
     const { name, email } = this.state;
     e.preventDefault();
     if (name === '' || email === '') {
@@ -27,6 +27,7 @@ class AddContact extends React.Component {
     };
 
     addContactHandler(contact);
+    history.push('/');
   };
 
   render() {
